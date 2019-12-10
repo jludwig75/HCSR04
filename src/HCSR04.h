@@ -72,8 +72,8 @@ class HCSR04
   HCSR04(uint8_t triggerPin, uint8_t echoPin, int16_t temperature = 20, uint16_t maxDistance = 300);
 
   void     begin(void);
-  float    getDistance(void);
-  float    getMedianFilterDistance(void);
+  float    getDistance(void) const;
+  float    getMedianFilterDistance(void) const;
   void     setTemperature(int16_t temperature);
 
  private:
