@@ -80,7 +80,7 @@ void HCSR04::begin(void)
     - speed of sound depends on ambient temperature
 */
 /**************************************************************************/
-float HCSR04::getDistance(void)
+float HCSR04::getDistance(void) const
 {
   return calcDistance(getEchoPulseLength());
 }
@@ -95,7 +95,7 @@ float HCSR04::getDistance(void)
     - see Normal/Gauss distribution for more details
 */
 /**************************************************************************/
-float HCSR04::getMedianFilterDistance(void)
+float HCSR04::getMedianFilterDistance(void) const
 {
   uint16_t data[3] = {0, 0, 0};
   uint16_t middle  = 0;
@@ -161,7 +161,7 @@ void HCSR04::setTemperature(int16_t temperature)
       −25         315.77
 */
 /**************************************************************************/
-uint16_t HCSR04::calcSoundSpeed(int16_t temperature)
+uint16_t HCSR04::calcSoundSpeed(int16_t temperature) const
 {
   return (HCSR04_SOUND_SPEED_ZERO_C) + 60 * temperature;
 }
@@ -174,7 +174,7 @@ uint16_t HCSR04::calcSoundSpeed(int16_t temperature)
     round trip, 1cm forward + 1cm back = 2cm
 */
 /**************************************************************************/
-float HCSR04::calcOneCentimetreRoundTripTime(uint16_t soundSpeed)
+float HCSR04::calcOneCentimetreRoundTripTime(uint16_t soundSpeed) const
 {
   return (float)2000000 / soundSpeed; //in μs
 }
@@ -187,7 +187,7 @@ float HCSR04::calcOneCentimetreRoundTripTime(uint16_t soundSpeed)
     a trip
 */
 /**************************************************************************/
-uint16_t HCSR04::calcEchoTimeout(uint16_t distance)
+uint16_t HCSR04::calcEchoTimeout(uint16_t distance) const
 {
   if      (distance > HCSR04_RANGE_MAX) distance = HCSR04_RANGE_MAX;
   else if (distance < HCSR04_RANGE_MIN) distance = HCSR04_RANGE_MIN;
@@ -211,7 +211,7 @@ uint16_t HCSR04::calcEchoTimeout(uint16_t distance)
     - after ~1.5cm sensor readings jump in the range 2.5cm - 3.5cm
 */
 /**************************************************************************/
-uint16_t HCSR04::getEchoPulseLength(void)
+uint16_t HCSR04::getEchoPulseLength(void) const
 {
   uint16_t pLength = 0;                           //in μs
 
@@ -248,7 +248,7 @@ uint16_t HCSR04::getEchoPulseLength(void)
     - speed of sound depends on ambient temperature
 */
 /**************************************************************************/
-float HCSR04::calcDistance(uint16_t pulseLength)
+float HCSR04::calcDistance(uint16_t pulseLength) const
 {
   if (pulseLength != HCSR04_OUT_OF_RANGE) return (float)pulseLength / _oneCentimetreRoundTripTime;
                                           return HCSR04_OUT_OF_RANGE;

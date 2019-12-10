@@ -72,8 +72,8 @@ class HCSR04
   HCSR04(uint8_t triggerPin, uint8_t echoPin, int16_t temperature = 20, uint16_t maxDistance = 300);
 
   void     begin(void);
-  float    getDistance(void);
-  float    getMedianFilterDistance(void);
+  float    getDistance(void) const;
+  float    getMedianFilterDistance(void) const;
   void     setTemperature(int16_t temperature);
 
  private:
@@ -83,11 +83,11 @@ class HCSR04
   uint8_t  _timeOutMin;
   uint16_t _timeOutMax;
 
-         uint16_t calcSoundSpeed(int16_t temperature);
-         float    calcOneCentimetreRoundTripTime(uint16_t soundSpeed);
-         uint16_t calcEchoTimeout(uint16_t distance);
-  inline uint16_t getEchoPulseLength(void);
-  inline float    calcDistance(uint16_t pulseLength);
+         uint16_t calcSoundSpeed(int16_t temperature) const;
+         float    calcOneCentimetreRoundTripTime(uint16_t soundSpeed) const;
+         uint16_t calcEchoTimeout(uint16_t distance) const;
+  inline uint16_t getEchoPulseLength(void) const;
+  inline float    calcDistance(uint16_t pulseLength) const;
 };
 
 #endif
